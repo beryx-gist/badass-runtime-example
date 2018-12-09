@@ -10,19 +10,12 @@ The plugin is configured in `build.gradle` as follows:
 
 ```
 plugins {
-    id 'org.beryx.runtime' version '2.1.5'
+    id 'org.beryx.runtime' version '1.0.0'
     ...
 }
 
 runtime {
-    mergedModule {
-        requires 'java.naming'
-        requires 'java.xml'
-    }
-    launcher{
-        name = 'hello'
-        jvmArgs = ['-Dlogback.configurationFile=./logback.xml']
-    }
+    modules = ['java.naming', 'java.xml']
 }
 ```
 
