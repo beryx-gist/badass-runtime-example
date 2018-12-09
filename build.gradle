@@ -1,0 +1,42 @@
+plugins {
+    id 'org.beryx.runtime' version '1.0.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+    compile 'javax.xml.bind:jaxb-api:2.3.0'
+}
+
+mainClassName = 'org.beryx.nonmodular.hello/org.beryx.nonmodular.hello.Hello'
+
+application {
+    mainClassName = 'org.beryx.nonmodular.hello.Hello'
+    applicationName = 'hello'
+    applicationDefaultJvmArgs = ['-Dlogback.configurationFile=./logback.xml']
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': "non-modular-hello",
+                'Main-Class': 'org.beryx.nonmodular.hello.Hello'
+    }
+}
+
+runtime {
+    modules = ['java.naming', 'java.xml']
+}
+
+tasks.runtime.doLast {
+    copy {
+        from('src/main/resources')
+        into("$buildDir/image/bin")
+    }
+}
