@@ -10,7 +10,7 @@ The plugin is configured in `build.gradle` as follows:
 
 ```
 plugins {
-    id 'org.beryx.runtime' version '1.0.0'
+    id 'org.beryx.runtime' version '1.1.2'
     ...
 }
 
