@@ -6,19 +6,6 @@
 
 A small application that shows how to use the [Badass Runtime Plugin](https://github.com/beryx/badass-runtime-plugin/).
 
-The plugin is configured in `build.gradle` as follows:
-
-```
-plugins {
-    id 'org.beryx.runtime' version '1.1.2'
-    ...
-}
-
-runtime {
-    modules = ['java.naming', 'java.xml']
-}
-```
-
 ### Usage
 **Running with gradle:**
 ```

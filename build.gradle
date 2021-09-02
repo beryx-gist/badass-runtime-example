@@ -1,5 +1,5 @@
 plugins {
-    id 'org.beryx.runtime' version '1.1.3'
+    id 'org.beryx.runtime' version '1.12.5'
 }
 
 repositories {
@@ -10,15 +10,14 @@ sourceCompatibility = 11
 targetCompatibility = 11
 
 dependencies {
-    compile 'org.slf4j:slf4j-api:1.7.25'
-    compile 'ch.qos.logback:logback-classic:1.2.3'
-    compile 'javax.xml.bind:jaxb-api:2.3.0'
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'javax.xml.bind:jaxb-api:2.3.0'
 }
 
-mainClassName = 'org.beryx.nonmodular.hello/org.beryx.nonmodular.hello.Hello'
-
 application {
-    mainClassName = 'org.beryx.nonmodular.hello.Hello'
+    mainClass = 'org.beryx.nonmodular.hello.Hello'
+    mainModule = 'org.beryx.nonmodular.hello'
     applicationName = 'hello'
     applicationDefaultJvmArgs = ['-Dlogback.configurationFile=./logback.xml']
 }
@@ -32,11 +31,19 @@ jar {
 
 runtime {
     modules = ['java.naming', 'java.xml']
+    jpackage {
+        def currentOs = org.gradle.internal.os.OperatingSystem.current()
+        if(currentOs.windows) {
+            installerOptions += ['--win-per-user-install', '--win-dir-chooser', '--win-menu', '--win-shortcut']
+            imageOptions = ['--win-console']
+        }
+    }
 }
 
-tasks.runtime.doLast {
+
+tasks.jpackage.doLast {
     copy {
         from('src/main/resources')
-        into("$buildDir/image/bin")
+        into("$buildDir/jpackage/$project.name/app")
     }
 }
