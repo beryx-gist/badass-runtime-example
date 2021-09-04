@@ -38,4 +38,4 @@ LOG: Hello, non-modular java!
 
 The above command will generate the platform-specific installers in the `build/jpackage` directory.
 
-:bulb: You can check the artifacts produced by the [GitHub actions used to build this project](https://github.com/beryx-gist/badass-runtime-example/actions?query=workflow%3A%22Gradle+Build%22) and download an application package for your platform (such as [from here](https://github.com/beryx-gist/badass-runtime-example/actions/runs/1200701206#artifacts)).
+:bulb: You can check the artifacts produced by the [GitHub actions used to build this project](https://github.com/beryx-gist/badass-runtime-example/actions?query=workflow%3A%22Gradle+Build%22) and download an application package for your platform (such as [from here](https://github.com/beryx-gist/badass-runtime-example/actions/runs/1201455602#artifacts)).
