@@ -40,7 +40,7 @@ runtime {
 }
 
 
-tasks.jpackage.doLast {
+tasks.jpackage.doFirst {
     copy {
         from('src/main/resources')
         into("$buildDir/jpackage/$project.name/app")
