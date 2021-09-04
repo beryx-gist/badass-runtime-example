@@ -46,8 +46,10 @@ runtime {
 
 
 tasks.jpackage.doFirst {
+    def currentOs = org.gradle.internal.os.OperatingSystem.current()
+    def basePath = currentOs.windows ? project.name : currentOs.linux ? "$project.name/lib" : "${project.name}.app/Contents"
     copy {
         from('src/main/resources')
-        into("$buildDir/jpackage/$project.name/app")
+        into("$buildDir/jpackage/$basePath/app")
     }
 }
