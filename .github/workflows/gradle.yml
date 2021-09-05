@@ -28,27 +28,44 @@ jobs:
       run: ./gradlew --info --stacktrace runtime
     - name: Execute jpackage
       run: ./gradlew --info --stacktrace jpackage
+    - name: Show build/jpackage content
+      if: runner.os != 'Windows'
+      run: ls -al build/jpackage
+    - name: Show logback files in DMG package
+      if: runner.os == 'macOS'
+      run: hdiutil attach build/jpackage/*.dmg && find /Volumes/non-modular-hello/non-modular-hello.app/Contents -name "logback*"
     - name: Upload DMG as an artifact
+      if: runner.os == 'macOS'
       uses: actions/upload-artifact@v2
       with:
         name: non-modular-hello-jdk${{ matrix.java }}-${{ matrix.os }}-dmg
         path: build/jpackage/*.dmg
     - name: Upload EXE as an artifact
+      if: runner.os == 'Windows'
       uses: actions/upload-artifact@v2
       with:
         name: non-modular-hello-jdk${{ matrix.java }}-${{ matrix.os }}-exe
         path: build/jpackage/*.exe
     - name: Upload MSI as an artifact
+      if: runner.os == 'Windows'
       uses: actions/upload-artifact@v2
       with:
         name: non-modular-hello-jdk${{ matrix.java }}-${{ matrix.os }}-msi
         path: build/jpackage/*.msi
+    - name: Show logback files in DEB package
+      if: runner.os == 'Linux'
+      run: dpkg -c build/jpackage/*.deb | grep logback
     - name: Upload DEB as an artifact
+      if: runner.os == 'Linux'
       uses: actions/upload-artifact@v2
       with:
         name: non-modular-hello-jdk${{ matrix.java }}-${{ matrix.os }}-deb
         path: build/jpackage/*.deb
+    - name: Show logback files in RPM package
+      if: runner.os == 'Linux'
+      run: rpm -qlp build/jpackage/*.rpm | grep logback
     - name: Upload RPM as an artifact
+      if: runner.os == 'Linux'
       uses: actions/upload-artifact@v2
       with:
         name: non-modular-hello-jdk${{ matrix.java }}-${{ matrix.os }}-rpm
