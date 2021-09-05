@@ -18,7 +18,7 @@ dependencies {
 application {
     mainClass = 'org.beryx.nonmodular.hello.Hello'
     applicationName = 'hello'
-    applicationDefaultJvmArgs = ['-Dlogback.configurationFile=./logback.xml']
+    applicationDefaultJvmArgs = ['-Dlogback.configurationFile=$APPDIR/logback.xml']
 }
 
 jar {
